@@ -1,0 +1,27 @@
+{
+  "name": "easy-notes-kyle",
+  "version": "1.0.0",
+  "description": "Easy notes app using Kyle coding tips",
+  "main": "index.js",
+  "scripts": {
+    "devStart": "npx nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plvmx/easy-notes-kyle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/plvmx/easy-notes-kyle/issues"
+  },
+  "homepage": "https://github.com/plvmx/easy-notes-kyle#readme",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
