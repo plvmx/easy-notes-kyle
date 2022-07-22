@@ -15,7 +15,7 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const isValid = true
   if (isValid) {
-    notes.push({ Note: req.body.Note })
+    notes.push({ Timestamp: new Date(), Note: req.body.Note })
     res.redirect(`/notes/${notes.length - 1}`)
   } else {
     console.log("Error")
@@ -23,7 +23,10 @@ router.post('/', (req, res) => {
   }
 })
 
-const notes = [{ Note: 'First test note' }]
+const notes = [{ 
+  Timestamp: new Date(),
+  Note: 'First test note' 
+}]
 
 // note: dynamic routes need to be below static routes
 router
