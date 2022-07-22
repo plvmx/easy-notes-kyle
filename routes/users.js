@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
+// middleware defined here will apply to all routes below
+router.use(logger)
+
 router.get('/', (req, res) => {
-  console.log('in /users')
   res.send("User List")
 })
 
 router.get('/new', (req, res) => {
-  console.log('in get /users/new')
   res.send("User New Form")
 })
 
@@ -22,7 +23,7 @@ const users = [{ name: 'Kyle' }, { name: 'Sally' }]
 router
   .route("/:id")
   .get((req, res) => {
-    console.log(req.user)
+    console.log(`User ${req.user.name} has been selected`)
     res.send(`Get User with ID ${req.params.id}`)
   })
   .put((req, res) => {
@@ -41,19 +42,9 @@ router.param("id", (req, res, next, id) => {
   next()
 })
 
-/* router.get('/:id', (req, res) => {
-  console.log('in get User with ID')
-  res.send(`Get User with ID ${req.params.id}`)
-})
-
-router.put('/:id', (req, res) => {
-  console.log('in get User with ID')
-  res.send(`Update User with ID ${req.params.id}`)
-})
-
-router.delete('/:id', (req, res) => {
-  console.log('in get User with ID')
-  res.send(`Delete User with ID ${req.params.id}`)
-}) */
+function logger(req, res, next) {
+  console.log(req.originalUrl)
+  next()
+}
 
 module.exports = router

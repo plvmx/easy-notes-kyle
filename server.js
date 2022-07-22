@@ -4,9 +4,8 @@ const app = express()
 app.set('view engine', 'ejs')
 
 app.get('/', (req, res) => {
-  console.log('Here we are')
   // res.download("server.js")
-  res.render('index', { text123: 'World' })
+  res.render('index', { text: 'World' })
 })
 
 const userRouter = require('./routes/users')
