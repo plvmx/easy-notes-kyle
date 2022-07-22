@@ -8,13 +8,10 @@ app.use(express.json())
 
 app.set('view engine', 'ejs')
 
-/* app.get('/', (req, res) => {
-  // res.download("server.js")
-  res.render('index', { text: 'World' })
-}) */
-
 const userRouter = require('./routes/users')
+const noteRouter = require('./routes/notes')
 
 app.use('/users', userRouter)
+app.use('/notes', noteRouter)
 
 app.listen(3000)
