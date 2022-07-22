@@ -16,24 +16,26 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const isValid = true
   if (isValid) {
-    notes.push({ text: req.body.text })
+    notes.push({ Note: req.body.Note })
     res.redirect(`/notes/${notes.length - 1}`)
   } else {
     console.log("Error")
-    res.render('notes/new', { text: req.body.text })
+    res.render('notes/new', { Note: req.body.Note })
   }
-  console.log(req.body.text)
-  res.send(`Hi ${req.body.text}`)
 })
 
-const notes = [{ text: 'First test note' }]
+const notes = [{ Note: 'First test note' }]
 
 // note: dynamic routes need to be below static routes
 router
   .route("/:id")
   .get((req, res) => {
-    console.log(`Note ${req.note.text} has been selected`)
-    res.send(`Get Note with ID ${req.params.id}`)
+    if (req.note) {
+      console.log(JSON.stringify(req.note))
+      res.send(`Here is Note ${req.params.id} - ${req.note.Note}`)
+    } else {
+      res.send(`Note with ID ${req.params.id} Not Found`)
+    }
   })
   .put((req, res) => {
     res.send(`Update Note with ID ${req.params.id}`)
@@ -50,7 +52,7 @@ router.param("id", (req, res, next, id) => {
 })
 
 function logger(req, res, next) {
-  console.log(req.originalUrl)
+  console.log(`${new Date()} Running URL ${req.originalUrl}`)
   next()
 }
 
