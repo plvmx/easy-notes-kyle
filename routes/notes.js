@@ -5,8 +5,7 @@ const router = express.Router()
 router.use(logger)
 
 router.get('/', (req, res) => {
-  console.log(req.query.name)
-  res.send("Note List")
+  res.render("notes/list", { notes: notes })
 })
 
 router.get('/new', (req, res) => {

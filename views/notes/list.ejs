@@ -7,6 +7,12 @@
   <title>My Notes</title>
 </head>
 <body>
-  
+  <h1>List of Notes</h1>
+  <h3>You have <%= notes.length%> notes</h3>
+  <ul>
+    <% for(var i = 0; i < notes.length; i++) {  %>
+      <li>Note <%= i %> - <%= notes[i].Note %></li>
+    <% } %>
+  </ul>
 </body>
 </html>
