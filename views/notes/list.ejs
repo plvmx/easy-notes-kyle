@@ -11,8 +11,8 @@
   <h3>You have <%= notes.length%> notes</h3>
   <ul>
     <% for(var i = 0; i < notes.length; i++) {  %>
-      <li>Note <%= i %> Recorded <%= notes[i].Timestamp %>
-        <p><%= notes[i].Note %></p>
+      <li>Note <%= i %> Recorded <%= notes[i].timestamp %>
+        <p><%= notes[i].note %></p>
       </li>
     <% } %>
   </ul>

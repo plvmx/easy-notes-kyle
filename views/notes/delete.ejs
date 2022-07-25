@@ -7,8 +7,9 @@
   <title>Notes</title>
 </head>
 <body>
-  <form action="/notes" method="POST">
-    <textarea name="note" placeholder="Enter your note here"><%= locals.note %></textarea>
+  <form action="/notes/delete" method="DELETE">
+    <textarea name="dnote" id="dnote" placeholder="Delete your note here"><%= locals.note.note %></textarea>
+    <input type="hidden" id="did" name="did" value="<%= locals.note.id %>">
     <p><button type="submit">Submit</button></p>
   </form>
   

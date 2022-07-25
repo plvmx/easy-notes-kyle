@@ -15,7 +15,7 @@ router.get('/new', (req, res) => {
 router.post('/', (req, res) => {
   const isValid = true
   if (isValid) {
-    notes.push({ Timestamp: new Date(), Note: req.body.Note })
+    notes.push({ id: notes.length, timestamp: new Date(), note: req.body.note })
     res.redirect(`/notes/${notes.length - 1}`)
   } else {
     console.log("Error")
@@ -23,29 +23,51 @@ router.post('/', (req, res) => {
   }
 })
 
+router.route("/update").get((req, res) => {
+  // note: this works but don't know why this is a GET when in the form it's a PUT
+  console.log('in put update '+req.query.unote+' '+req.query.uid)
+  notes[req.query.uid].note = req.query.unote
+  res.render("notes/list", { notes: notes })
+})
+
+router.route("/delete").get((req, res) => {
+  // note: this works but don't know why this is a GET when in the form it's a DELETE
+  console.log('in delete '+req.query.dnote+' '+req.query.did)
+  var new_notes = notes.splice(req.query.did, 1)
+  res.render("notes/list", { notes: new_notes })
+})
+
 const notes = [{ 
-  Timestamp: new Date(),
-  Note: 'First test note' 
+  id: 0,
+  timestamp: new Date(),
+  note: 'First test note' 
 }]
 
 // note: dynamic routes need to be below static routes
-router
-  .route("/:id")
-  .get((req, res) => {
-    if (req.note) {
-      console.log(JSON.stringify(req.note))
-      res.send(`Here is Note ${req.params.id} - ${req.note.Note}`)
-    } else {
-      res.send(`Note with ID ${req.params.id} Not Found`)
-    }
-  })
-  .put((req, res) => {
-    res.send(`Update Note with ID ${req.params.id}`)
-  })
-  .delete((req, res) => {
-    res.send(`Delete Note with ID ${req.params.id}`)
-  })
+router.route("/:id").get((req, res) => {
+  if (req.note) {
+    console.log(JSON.stringify(req.note))
+    res.send(`Here is Note ${req.params.id} - ${req.note.note}`)
+  } else {
+    res.send(`Note with ID ${req.params.id} Not Found - in /:id`)
+  }
+})
 
+router.route("/update/:id").get((req, res) => {
+  if (req.note) {
+    res.render("notes/update", { note: req.note })
+  } else {
+    res.send(`Note with ID ${req.params.id} Not Found - in /update`)
+  }
+})
+
+router.route("/delete/:id").get((req, res) => {
+  if (req.note) {
+    res.render("notes/delete", { note: req.note })
+  } else {
+    res.send(`Note with ID ${req.params.id} Not Found - in /delete`)
+  }
+}) 
 
 // note: param is a middleware between server and screen
 router.param("id", (req, res, next, id) => {
